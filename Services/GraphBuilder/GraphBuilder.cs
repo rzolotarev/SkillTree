@@ -10,16 +10,16 @@ namespace Services.GraphBuilder
 {
     public class GraphBuilder : IGraphBuilder
     {
-        private Node root { get; set; }
-        private Node lastNode { get; set; }
-        private Stack<Node> branchNodes { get; set; }
+        private SkillNode root { get; set; }
+        private SkillNode lastNode { get; set; }
+        private Stack<SkillNode> branchNodes { get; set; }
 
         public GraphBuilder()
         {
-            branchNodes = new Stack<Node>();
+            branchNodes = new Stack<SkillNode>();
         }
 
-        public IGraphBuilder AddNode(Node newNode)
+        public IGraphBuilder AddNode(SkillNode newNode)
         {
             if (root == null)
             {
@@ -37,7 +37,7 @@ namespace Services.GraphBuilder
             return this;
         }
 
-        public IGraphBuilder AddBranchNode(Node newNode)
+        public IGraphBuilder AddBranchNode(SkillNode newNode)
         {
             if (root == null)
             {
@@ -57,7 +57,7 @@ namespace Services.GraphBuilder
             return this;
         }
 
-        public IGraphBuilder AddNodeFromClosestBranchNode(Node newNode, bool withPop = true)
+        public IGraphBuilder AddNodeFromClosestBranchNode(SkillNode newNode, bool withPop = true)
         {
             if (root == null)
             {
@@ -69,7 +69,7 @@ namespace Services.GraphBuilder
                 if (branchNodes.Peek() == null)
                     return this;
 
-                Node branchNode;
+                SkillNode branchNode;
                 if (withPop) branchNode = branchNodes.Pop();
                 else branchNode = branchNodes.Peek();
 
@@ -81,7 +81,7 @@ namespace Services.GraphBuilder
             return this;
         }     
 
-        public Node GetRoot()
+        public SkillNode GetRoot()
         {
             return root;
         } 

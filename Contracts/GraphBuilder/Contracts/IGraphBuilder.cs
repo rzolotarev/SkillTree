@@ -9,9 +9,9 @@ namespace Contracts.GraphBuilder.Contracts
 {
     public interface IGraphBuilder
     {
-        IGraphBuilder AddNode(Node newNode);
-        IGraphBuilder AddBranchNode(Node newNode);
-        IGraphBuilder AddNodeFromClosestBranchNode(Node newNode, bool withPop = true);        
-        Node GetRoot();
+        IGraphBuilder AddNode(SkillNode newNode);
+        IGraphBuilder AddBranchNode(SkillNode newNode);
+        IGraphBuilder AddNodeFromClosestBranchNode(SkillNode newNode, bool withPop = true);        
+        SkillNode GetRoot();
     }
 }

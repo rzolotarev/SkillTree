@@ -43,7 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GraphBuilder\Contracts\IGraphBuilder.cs" />
-    <Compile Include="GraphWalker\IGraphWalker.cs" />
+    <Compile Include="GraphWalker\Contracts\IGraphWalker.cs" />
+    <Compile Include="GraphWalker\Contracts\IVisitor.cs" />
     <Compile Include="Nodes\ViewModels\Node.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

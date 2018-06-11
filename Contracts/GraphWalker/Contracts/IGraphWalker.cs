@@ -1,4 +1,5 @@
-﻿using Contracts.Nodes.ViewModels;
+﻿using Contracts.GraphWalker.Contracts;
+using Contracts.Nodes.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Contracts.GraphWalker
 {
     public interface IGraphWalker
     {
-        void WalkThrough(Node rootNode);
+        void WalkThrough(SkillNode rootNode);
     }
 }

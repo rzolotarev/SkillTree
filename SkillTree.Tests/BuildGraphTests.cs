@@ -17,12 +17,12 @@ namespace SkillTree.Tests
         {
             var graphBuilderMage = new GraphBuilder();
             graphBuilderMage
-                .AddNode(new Node("Mage"))
-                .AddBranchNode(new Node("FireBall"))
-                .AddNode(new Node("Electroshock"))
-                .AddNode(new Node("Thunderbolt"))
-                .AddNodeFromClosestBranchNode(new Node("Freeze"))
-                .AddNode(new Node("Snowstorm"));
+                .AddNode(new SkillNode("Mage"))
+                .AddBranchNode(new SkillNode("FireBall"))
+                .AddNode(new SkillNode("Electroshock"))
+                .AddNode(new SkillNode("Thunderbolt"))
+                .AddNodeFromClosestBranchNode(new SkillNode("Freeze"))
+                .AddNode(new SkillNode("Snowstorm"));
 
             Assert.AreEqual("Thunderbolt", graphBuilderMage.GetRoot().DependantNodes[0].DependantNodes[0].DependantNodes[0].Name);
         }
@@ -31,16 +31,16 @@ namespace SkillTree.Tests
         public void TestMultipleDependsOnNodes()
         {
             var graphBuilderWarrior = new GraphBuilder();
-            var roundHouseKick = new Node("Roundhouse Kick");
+            var roundHouseKick = new SkillNode("Roundhouse Kick");
 
             graphBuilderWarrior
-                    .AddBranchNode(new Node("Warrior"))
-                    .AddBranchNode(new Node("Strike"))
-                    .AddNode(new Node("Double Strike"))
-                    .AddNodeFromClosestBranchNode(new Node("Slash"))
+                    .AddBranchNode(new SkillNode("Warrior"))
+                    .AddBranchNode(new SkillNode("Strike"))
+                    .AddNode(new SkillNode("Double Strike"))
+                    .AddNodeFromClosestBranchNode(new SkillNode("Slash"))
                     .AddNode(roundHouseKick)
-                    .AddNodeFromClosestBranchNode(new Node("Hit"))
-                    .AddNode(new Node("Knockout"))
+                    .AddNodeFromClosestBranchNode(new SkillNode("Hit"))
+                    .AddNode(new SkillNode("Knockout"))
                     .AddNode(roundHouseKick);
 
             Assert.AreEqual(2, graphBuilderWarrior.GetRoot().DependantNodes[0].DependantNodes[1].DependantNodes[0].DependsOn.Count);

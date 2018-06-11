@@ -1,5 +1,6 @@
 ﻿using Contracts.Nodes.ViewModels;
 using Services.GraphBuilder;
+using Services.GraphProvider;
 using Services.GraphWalker;
 using Services.GraphWalker.Visitor;
 using System;
@@ -14,8 +15,45 @@ namespace SkillTree
     {
         static void Main(string[] args)
         {
+            RunWarriorSkillsGraph();
+            RunMageSkillsGraph();
+        }
+
+        private static void RunMageSkillsGraph()
+        {
+            var graphBuilderMage = new GraphBuilder();
+            var mageNode = new SkillNode("Mage", true, true);
+            var fireBallNode = new SkillNode("FireBall");
+            var elShockNode = new SkillNode("Electroshock");
+            var thunderNode = new SkillNode("Thunderbolt");
+            var freezeNode = new SkillNode("Freeze");
+            var snowStormNode = new SkillNode("Snowstorm");
+            graphBuilderMage
+                .AddNode(mageNode)
+                .AddBranchNode(fireBallNode)
+                .AddNode(elShockNode)
+                .AddNode(thunderNode)
+                .AddNodeFromClosestBranchNode(freezeNode)
+                .AddNode(snowStormNode);
+
+            var skillGrappProvider = new SkillsGraphProvider(new GraphWalker(new LockMarkuper()));
+            skillGrappProvider.Unlock(mageNode);
+
+            skillGrappProvider.Unlock(fireBallNode);
+
+            skillGrappProvider.Unlock(elShockNode);
+
+            skillGrappProvider.Unlock(thunderNode);
+
+            skillGrappProvider.Unlock(freezeNode);
+
+            skillGrappProvider.Unlock(snowStormNode);
+        }
+
+        public static void RunWarriorSkillsGraph()
+        {
             var graphBuilderWarrior = new GraphBuilder();
-            var rootNode = new SkillNode("Warrior", false, true);
+            var rootNode = new SkillNode("Warrior", true, true);
             var strikeNode = new SkillNode("Strike");
             var roundHouseKick = new SkillNode("Roundhouse Kick");
             var slashNode = new SkillNode("Slash");
@@ -32,22 +70,16 @@ namespace SkillTree
                     .AddNode(knockoutNode)
                     .AddNode(roundHouseKick);
 
+            var skillGrappProvider = new SkillsGraphProvider(new GraphWalker(new LockMarkuper()));
+            skillGrappProvider.Unlock(rootNode);
 
-            var graphWalker = new GraphWalker(new LockMarkuper());
-            rootNode.Unlock();
-            graphWalker.WalkThrough(rootNode);
+            skillGrappProvider.Unlock(strikeNode);
 
-            strikeNode.Unlock();
-            graphWalker.WalkThrough(rootNode);
+            skillGrappProvider.Unlock(slashNode);
 
-            slashNode.Unlock();
-            graphWalker.WalkThrough(rootNode);
+            skillGrappProvider.Unlock(hitNode);
 
-            hitNode.Unlock();
-            graphWalker.WalkThrough(rootNode);
-
-            knockoutNode.Unlock();
-            graphWalker.WalkThrough(rootNode);
+            skillGrappProvider.Unlock(knockoutNode);
         }
     }
 }

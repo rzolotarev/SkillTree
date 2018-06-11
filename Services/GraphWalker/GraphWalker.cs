@@ -12,6 +12,7 @@ namespace Services.GraphWalker
     public class GraphWalker : IGraphWalker
     {
         private readonly IVisitor _visitor;
+
         public GraphWalker(IVisitor visitor)
         {
             _visitor = visitor;
@@ -20,7 +21,7 @@ namespace Services.GraphWalker
         public void WalkThrough(SkillNode currentNode)
         {   
             var walkingQueue = new Queue<SkillNode>(currentNode.DependantNodes);            
-            while(walkingQueue.Count() != 0)
+            while(walkingQueue.Count() > 0)
             {
                 var skillNode = walkingQueue.Dequeue();
                 _visitor.Visit(skillNode);

@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GraphBuilder\Contracts\IGraphBuilder.cs" />
+    <Compile Include="GraphProvider\Contracts\IGraphProvider.cs" />
     <Compile Include="GraphWalker\Contracts\IGraphWalker.cs" />
     <Compile Include="GraphWalker\Contracts\IVisitor.cs" />
     <Compile Include="Nodes\ViewModels\Node.cs" />

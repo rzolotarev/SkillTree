@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GraphBuilder\GraphBuilder.cs" />
+    <Compile Include="GraphProvider\SkillGraphProvider.cs" />
     <Compile Include="GraphWalker\GraphWalker.cs" />
     <Compile Include="GraphWalker\Visitor\LockMarkuper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

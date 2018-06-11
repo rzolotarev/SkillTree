@@ -1,6 +1,7 @@
 ﻿using Contracts.Nodes.ViewModels;
 using NUnit.Framework;
 using Services.GraphBuilder;
+using Services.GraphProvider;
 using Services.GraphWalker;
 using Services.GraphWalker.Visitor;
 using System;
@@ -21,7 +22,7 @@ namespace SkillTree.Tests
             var roundHouseKick = new SkillNode("Roundhouse Kick");
 
             graphBuilderWarrior
-                    .AddBranchNode(new SkillNode("Warrior", false, true))
+                    .AddBranchNode(new SkillNode("Warrior", true, true))
                     .AddBranchNode(new SkillNode("Strike"))
                     .AddNode(new SkillNode("Double Strike"))
                     .AddNodeFromClosestBranchNode(new SkillNode("Slash"))
@@ -46,7 +47,7 @@ namespace SkillTree.Tests
             var roundHouseKick = new SkillNode("Roundhouse Kick");
 
             graphBuilderWarrior
-                    .AddBranchNode(new SkillNode("Warrior", false, true))
+                    .AddBranchNode(new SkillNode("Warrior", true, true))
                     .AddBranchNode(new SkillNode("Strike"))
                     .AddNode(new SkillNode("Double Strike"))
                     .AddNodeFromClosestBranchNode(new SkillNode("Slash"))
@@ -72,7 +73,7 @@ namespace SkillTree.Tests
         public void TestCanBeUnlockedRoundHouseKick_WithUnlockedParents()
         {
             var graphBuilderWarrior = new GraphBuilder();
-            var rootNode = new SkillNode("Warrior", false, true);
+            var rootNode = new SkillNode("Warrior", true, true);
             var strikeNode = new SkillNode("Strike");
             var roundHouseKick = new SkillNode("Roundhouse Kick");
             var slashNode = new SkillNode("Slash");
@@ -90,21 +91,16 @@ namespace SkillTree.Tests
                     .AddNode(roundHouseKick);
 
 
-            var graphWalker = new GraphWalker(new LockMarkuper());            
-            rootNode.Unlock();
-            graphWalker.WalkThrough(rootNode);
+            var skillGrappProvider = new SkillsGraphProvider(new GraphWalker(new LockMarkuper()));
+            skillGrappProvider.Unlock(rootNode);
 
-            strikeNode.Unlock();
-            graphWalker.WalkThrough(strikeNode);
+            skillGrappProvider.Unlock(strikeNode);
 
-            slashNode.Unlock();
-            graphWalker.WalkThrough(slashNode);
+            skillGrappProvider.Unlock(slashNode);
 
-            hitNode.Unlock();
-            graphWalker.WalkThrough(hitNode);
+            skillGrappProvider.Unlock(hitNode);
 
-            knockoutNode.Unlock();
-            graphWalker.WalkThrough(knockoutNode);
+            skillGrappProvider.Unlock(knockoutNode);            
 
             Assert.AreEqual(true, roundHouseKick.CanBeUnlocked());
         }

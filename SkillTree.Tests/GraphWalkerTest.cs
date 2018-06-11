@@ -72,37 +72,39 @@ namespace SkillTree.Tests
         public void TestCanBeUnlockedRoundHouseKick_WithUnlockedParents()
         {
             var graphBuilderWarrior = new GraphBuilder();
+            var rootNode = new SkillNode("Warrior", false, true);
+            var strikeNode = new SkillNode("Strike");
             var roundHouseKick = new SkillNode("Roundhouse Kick");
-
+            var slashNode = new SkillNode("Slash");
+            var hitNode = new SkillNode("Hit");
+            var knockoutNode = new SkillNode("Knockout");
+            var doubleStrikeNode = new SkillNode("Double Strike");
             graphBuilderWarrior
-                    .AddBranchNode(new SkillNode("Warrior", false, true))
-                    .AddBranchNode(new SkillNode("Strike"))
-                    .AddNode(new SkillNode("Double Strike"))
-                    .AddNodeFromClosestBranchNode(new SkillNode("Slash"))
+                    .AddBranchNode(rootNode)
+                    .AddBranchNode(strikeNode)
+                    .AddNode(doubleStrikeNode)
+                    .AddNodeFromClosestBranchNode(slashNode)
                     .AddNode(roundHouseKick)
-                    .AddNodeFromClosestBranchNode(new SkillNode("Hit"))
-                    .AddNode(new SkillNode("Knockout"))
+                    .AddNodeFromClosestBranchNode(hitNode)
+                    .AddNode(knockoutNode)
                     .AddNode(roundHouseKick);
 
-            
+
             var graphWalker = new GraphWalker(new LockMarkuper());            
-            var root = graphBuilderWarrior.GetRoot();
-            root.Unlock();
-            graphWalker.WalkThrough(root);
+            rootNode.Unlock();
+            graphWalker.WalkThrough(rootNode);
 
-            var strikeNode = root.DependantNodes[0];
             strikeNode.Unlock();
-            graphWalker.WalkThrough(root);
-            var slashNode = strikeNode.DependantNodes[1];
-            slashNode.Unlock();
-            graphWalker.WalkThrough(root);            
+            graphWalker.WalkThrough(strikeNode);
 
-            var hitNode = root.DependantNodes[1];
+            slashNode.Unlock();
+            graphWalker.WalkThrough(slashNode);
+
             hitNode.Unlock();
-            graphWalker.WalkThrough(root);
-            var knockout = hitNode.DependantNodes[0];
-            knockout.Unlock();
-            graphWalker.WalkThrough(root);
+            graphWalker.WalkThrough(hitNode);
+
+            knockoutNode.Unlock();
+            graphWalker.WalkThrough(knockoutNode);
 
             Assert.AreEqual(true, roundHouseKick.CanBeUnlocked());
         }

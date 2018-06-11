@@ -11,7 +11,7 @@ namespace Contracts.GraphBuilder.Contracts
     {
         IGraphBuilder AddNode(Node newNode);
         IGraphBuilder AddBranchNode(Node newNode);
-        IGraphBuilder AddNodeFromClosestBranchNode(Node newNode);        
+        IGraphBuilder AddNodeFromClosestBranchNode(Node newNode, bool withPop = true);        
         Node GetRoot();
     }
 }

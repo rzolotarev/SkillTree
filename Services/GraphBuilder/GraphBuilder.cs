@@ -57,7 +57,7 @@ namespace Services.GraphBuilder
             return this;
         }
 
-        public IGraphBuilder AddNodeFromClosestBranchNode(Node newNode)
+        public IGraphBuilder AddNodeFromClosestBranchNode(Node newNode, bool withPop = true)
         {
             if (root == null)
             {
@@ -69,7 +69,10 @@ namespace Services.GraphBuilder
                 if (branchNodes.Peek() == null)
                     return this;
 
-                var branchNode = branchNodes.Pop();
+                Node branchNode;
+                if (withPop) branchNode = branchNodes.Pop();
+                else branchNode = branchNodes.Peek();
+
                 branchNode.DependantNodes.Add(newNode);
                 newNode.DependsOn.Add(branchNode);                
                 lastNode = newNode;                

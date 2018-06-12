@@ -17,7 +17,7 @@ namespace Services.GraphWalker
         {
             _visitor = visitor;
         }
-
+        
         public void WalkThrough(SkillNode currentNode)
         {   
             var walkingQueue = new Queue<SkillNode>(currentNode.DependantNodes);            

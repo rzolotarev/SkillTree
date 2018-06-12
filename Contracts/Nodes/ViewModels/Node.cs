@@ -14,6 +14,8 @@ namespace Contracts.Nodes.ViewModels
         private bool canBeUnlocked { get; set; }
         public List<SkillNode> DependsOn { get; set; }
         public List<SkillNode> DependantNodes { get; set; }
+
+        // it makes possible to walk through the graph starting from the root
         public bool ShouldGoDown { get; set; }
 
         public SkillNode(string name, bool isLocked = true, bool canBeUnlocked = false)

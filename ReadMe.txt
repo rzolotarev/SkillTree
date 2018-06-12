@@ -1,1 +1,0 @@
-At the programm I was assuming that if a skill is unlocked it can't be locked.
